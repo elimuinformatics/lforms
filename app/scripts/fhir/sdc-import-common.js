@@ -599,6 +599,7 @@ function addCommonSDCImportFns(ns) {
     var itemControlType = LForms.Util.findObjectInArray(qItem.extension, 'url', self.fhirExtUrlItemControl);
 
     if(itemControlType) {
+      debugger;
       var displayControl = {};
       switch (itemControlType.valueCodeableConcept.coding[0].code) {
         case 'Lookup': // backward-compatibility with old export
@@ -634,6 +635,11 @@ function addCommonSDCImportFns(ns) {
         case 'table':
           if(lfItem.dataType === 'SECTION') {
             displayControl.questionLayout = "matrix";
+          }
+          break;
+         case 'grid':  // Not in STU3, but we'll accept it
+          if (lfItem.dataType === 'SECTION') {
+            displayControl.questionLayout = "grid";
           }
           break;
         default:
