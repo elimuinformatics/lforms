@@ -599,7 +599,6 @@ function addCommonSDCImportFns(ns) {
     var itemControlType = LForms.Util.findObjectInArray(qItem.extension, 'url', self.fhirExtUrlItemControl);
 
     if(itemControlType) {
-      debugger;
       var displayControl = {};
       switch (itemControlType.valueCodeableConcept.coding[0].code) {
         case 'Lookup': // backward-compatibility with old export

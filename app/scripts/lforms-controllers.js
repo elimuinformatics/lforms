@@ -962,7 +962,6 @@ angular.module('lformsWidget')
 
           // for debug only. to be removed.
         $scope.onclick = function() {
-          debugger
           var ele = $element;
           var i = 1;
         };
