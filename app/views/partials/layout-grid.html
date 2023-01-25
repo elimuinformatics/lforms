@@ -48,8 +48,8 @@
       <tr class="lf-">
         <span ng-bind="createCustomHeaders(item)">
           <th class="lf-question lf-form-table-header"></th>
-          <th class="lf-question lf-form-table-header">{{item.question}}</th>
-          <th ng-repeat="header in uniqueGridHeaders" class="lf-form-matrix-cell lf-form-table-header"
+          <th class="lf-question lf-form-table-header lf-form-matrix-cell">{{item.question}}</th>
+          <th ng-repeat="header in uniqueGridHeaders" class="lf-question lf-form-table-header lf-form-matrix-cell"
             id="answer-{{$index}}">{{header}}</th>
         </span>
       </tr>
