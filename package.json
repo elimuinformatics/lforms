@@ -1,6 +1,6 @@
 {
-  "name": "@elimuinformatics/lforms",
-  "version": "0.0.2",
+  "name": "lforms",
+  "version": "29.3.1",
   "keywords": [
     "fhir",
     "Questionnaire",
@@ -76,11 +76,8 @@
     "webpack-cli": "^3.3.11",
     "wiredep": "^4.0.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lhncbc/lforms.git"
-  },
-  "license": "ISC",
+  "repository": "github:lhncbc/lforms",
+  "license": "See LICENSE.md",
   "scripts": {
     "wiredep": "grunt wiredep",
     "webpack": "webpack",
@@ -92,7 +89,7 @@
     "build:clean": "rm -rf dist bower-dist app/generated .tmp",
     "build:mkdist": "mkdir dist; mkdir -p dist/$npm_package_name-$npm_package_version/styles; (cd dist; ln -s $npm_package_name-$npm_package_version latest)",
     "build:version": "node -e 'require(\"fs\").writeFileSync(\"app/version.json\", JSON.stringify({lformsVersion: require(\"./package.json\").version}))'",
-    "build:css:lforms": "cleancss --skip-rebase -o dist/latest/styles/lforms.min.css dist/lforms-0.0.2/styles/lforms.css",
+    "build:css:lforms": "cleancss --skip-rebase -o dist/latest/styles/lforms.min.css dist/latest/styles/lforms.css",
     "build:css:themes": "node-sass app/styles/themes.scss --output .tmp/styles && cleancss --skip-rebase -o dist/latest/styles/themes.min.css .tmp/styles/themes.css",
     "build:css": "npm run build:css:themes && npm run build:css:lforms",
     "build:zip": "cd dist; dirname=$npm_package_name-$npm_package_version; zip -r $dirname.zip $dirname",
@@ -101,14 +98,5 @@
     "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update --versions.chrome $(google-chrome --version |awk '{print $NF}')",
     "debug-karma": "karma start karma.conf.js --browsers=Chrome --single-run=false",
     "start": "grunt serve"
-  },
-  "description": "[LForms](http://lhncbc.github.io/lforms/), a.k.a. LHC-Forms, is a feature-rich, open-source widget that creates input forms, based on definition files, for Web-based applications.  In addition to its native form-definition format, it partially supports the HL7 FHIR Questionnaire standard (SDC profile), and work is in progress to expand that support.",
-  "bugs": {
-    "url": "https://github.com/lhncbc/lforms/issues"
-  },
-  "homepage": "https://github.com/lhncbc/lforms#readme",
-  "directories": {
-    "test": "test"
-  },
-  "author": "Elimu"
+  }
 }

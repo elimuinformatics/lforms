@@ -176,13 +176,6 @@
           templateUrl: 'layout-matrix.html'
         };
       })
-      .directive('lfSectionGrid', function() {
-        return {
-          restrict: 'E',
-          transclude: true,
-          templateUrl: 'layout-grid.html'
-        };
-      })
       .directive('lfRepeatingButton', function() {
         return {
           restrict: 'E',

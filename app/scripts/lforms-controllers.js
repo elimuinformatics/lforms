@@ -10,7 +10,6 @@ angular.module('lformsWidget')
 
         $scope.hasUnused = false;
         $scope.repeatingSectionStatus = {};
-        $scope.uniqueGridHeaders =[];
 
         $scope.validationInitialShowTime = LF_CONSTANTS.VALIDATION_MESSAGE_INITIAL_SHOW_TIME;
 
@@ -404,7 +403,7 @@ angular.module('lformsWidget')
         $scope.isQuestionLayoutAllowed = function(item, layout) {
 
           var allowed = false;
-          if (layout === 'matrix' || layout === 'horizontal' || layout === 'grid') {
+          if (layout === 'matrix' || layout === 'horizontal') {
             allowed = true;
             //for both horizontal and matrix
             //the item has children but no grand children
@@ -419,7 +418,7 @@ angular.module('lformsWidget')
                   break;
                 }
                 // addition requirement for matrix layout: all answers are same
-                if (layout === "matrix" || layout === "grid") {
+                if (layout === "matrix") {
                   if (subItem.dataType !== "CWE" && subItem.dataType !== "CNE") {
                     allowed = false;
                     break;
@@ -462,17 +461,6 @@ angular.module('lformsWidget')
           return ret;
         };
 
-        $scope.createCustomHeaders=function(item){
-          this.uniqueGridHeaders=[];
-          item.items.forEach(questionItems => {
-            questionItems.items.forEach(subItems => {
-              if(!this.uniqueGridHeaders.includes(subItems.question)  && subItems.skipLogic?.conditions[0]?.trigger?.value != 'alwaysHide'){
-                this.uniqueGridHeaders.push(subItems.question);
-              }   
-          });
-          });
-        }
-        
 
         /**
          * Get coding instructions with assumed safe HTML content
@@ -962,6 +950,7 @@ angular.module('lformsWidget')
 
           // for debug only. to be removed.
         $scope.onclick = function() {
+          debugger
           var ele = $element;
           var i = 1;
         };
