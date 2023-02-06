@@ -165,9 +165,6 @@
             </div>
           </ng-form>
         </td>
-
-
-        <!-- last row data -->
         <td ng-repeat="cell in subItem.items" ng-if="targetShown(cell) && !cell._isHiddenFromView"
           class="hasTooltip {{getRowClass(cell)}} {{getSkipLogicClass(cell)}} {{getActiveRowClass(cell)}}" ng-switch
           on="(!lfData._expressionProcessor._firstExpressionRunComplete && cell._hasListExpr) ? 'Loading List' : cell.dataType">
@@ -230,11 +227,9 @@
                 placeholder="{{cell._toolTip}}" ng-disabled="cell._readOnly" id="{{cell._elementId}}"
                 aria-labelledby="{{lfData._horizontalTableInfo[item._horizontalTableId].columnHeaders[$index].id}}"
                 ng-focus="setActiveRow(cell)" ng-blur="activeRowOnBlur(cell)">
-
             </div>
           </ng-form>
         </td>
-
       </tr>
     </tbody>
   </table>
