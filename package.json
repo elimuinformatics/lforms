@@ -1,6 +1,6 @@
 {
-  "name": "lforms",
-  "version": "29.3.1",
+  "name": "@elimuinformatics/lforms",
+  "version": "0.0.5",
   "keywords": [
     "fhir",
     "Questionnaire",
@@ -76,8 +76,11 @@
     "webpack-cli": "^3.3.11",
     "wiredep": "^4.0.0"
   },
-  "repository": "github:lhncbc/lforms",
-  "license": "See LICENSE.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lhncbc/lforms.git"
+  },
+  "license": "ISC",
   "scripts": {
     "wiredep": "grunt wiredep",
     "webpack": "webpack",
@@ -98,5 +101,14 @@
     "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update --versions.chrome $(google-chrome --version |awk '{print $NF}')",
     "debug-karma": "karma start karma.conf.js --browsers=Chrome --single-run=false",
     "start": "grunt serve"
-  }
+  },
+  "description": "This is an fork of the old Lforms version 29.3.1, We have added the grid extesion to the library.",
+  "bugs": {
+    "url": "https://github.com/lhncbc/lforms/issues"
+  },
+  "homepage": "https://github.com/lhncbc/lforms#readme",
+  "directories": {
+    "test": "test"
+  },
+  "author": "Elimu"
 }
