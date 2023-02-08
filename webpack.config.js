@@ -52,7 +52,7 @@ function makeConfigs(env) {
   const MomentLocalesPlugin = require('moment-locales-webpack-plugin'); // Excludes momentjs locales.
   let configs = [];
   let fhirVersions = Object.keys(require('./app/scripts/fhir/versions'));
-  let versionedDist = 'lforms-'+require('./package.json').version;
+  let versionedDist = '@elimuinformatics/lforms-'+require('./package.json').version;
   let rootDirPath = require('path').resolve(__dirname);
   let versionedDistPath = rootDirPath+'/dist/'+versionedDist;
   let distFhirPath = versionedDistPath+'/fhir';
