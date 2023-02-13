@@ -466,7 +466,7 @@ angular.module('lformsWidget')
           this.uniqueGridHeaders=[];
           item.items.forEach(questionItems => {
             questionItems.items.forEach(subItems => {
-              if(!this.uniqueGridHeaders.includes(subItems.question)  && subItems.skipLogic?.conditions[0]?.trigger?.value != 'alwaysHide'){
+              if(!this.uniqueGridHeaders.includes(subItems.question)  && subItems.skipLogic?.conditions[0]?.trigger?.value != 'alwaysHide' && !subItems._isHiddenFromView){
                 this.uniqueGridHeaders.push(subItems.question);
               }   
           });
