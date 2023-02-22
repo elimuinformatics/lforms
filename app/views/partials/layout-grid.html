@@ -165,7 +165,7 @@
             </div>
           </ng-form>
         </td>
-        <td ng-repeat="cell in subItem.items" ng-if="targetShown(cell) && !cell._isHiddenFromView"
+        <td ng-repeat="cell in subItem.items" ng-if="targetShown(cell) && !cell._isHiddenFromView" style="text-align: center"
           class="hasTooltip {{getRowClass(cell)}} {{getSkipLogicClass(cell)}} {{getActiveRowClass(cell)}}" ng-switch
           on="(!lfData._expressionProcessor._firstExpressionRunComplete && cell._hasListExpr) ? 'Loading List' : cell.dataType">
           <ng-form name="innerForm2">
