@@ -140,7 +140,7 @@
         {"question":"Comment", "questionCode":"comment","dataType":"TX","answers":""}
       ],
       // controls whether the column headers need to be displayed
-      showColumnHeaders: true,
+      showColumnHeaders: false,
       // controls the default answer layout for CWE/CNE typed items if answerLayout is not specified on the item's displayControl.
       // not changeable on a rendered form.
       defaultAnswerLayout: {
