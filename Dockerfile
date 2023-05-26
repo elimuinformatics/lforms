@@ -1,5 +1,5 @@
 
-FROM node:10
+FROM node:10-buster
 WORKDIR app
 RUN apt update -y
 ARG NPM_TOKEN
