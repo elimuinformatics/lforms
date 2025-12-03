@@ -98,12 +98,7 @@ jobs:
         run: npm run build
       
       - name: Verify package configuration
-        run: |
-          node -e "const pkg = require('./package.json'); 
-          if (!pkg.name) throw new Error('Missing package name'); 
-          if (!pkg.version) throw new Error('Missing package version'); 
-          if (!pkg.main && !pkg.exports) console.warn('Warning: No main entry point defined'); 
-          console.log('✅ Package configuration looks good');"
+        run: node scripts/verify-package.js
       
       - name: Verify package
         run: npm pack --dry-run
