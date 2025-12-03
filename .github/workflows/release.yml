@@ -1,0 +1,114 @@
+name: Release Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+  # Allow manual triggering from GitHub UI
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release (e.g., v1.0.0)'
+        required: true
+        type: string
+
+# Required for NPM trusted publishing
+permissions:
+  id-token: write  
+  contents: read   
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run unit tests
+        run: npm run test:unit
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build project
+        run: npm run build
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            dist/
+            !dist/**/*.zip
+          retention-days: 7
+
+  publish:
+    needs: [test, build]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+      
+      # Ensure we have npm 11.5.1 or later for trusted publishing
+      - name: Update npm
+        run: npm install -g npm@latest
+      
+      - name: Verify npm version
+        run: npm --version
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build for production
+        run: npm run build
+      
+      - name: Verify package configuration
+        run: |
+          node -e "const pkg = require('./package.json'); 
+          if (!pkg.name) throw new Error('Missing package name'); 
+          if (!pkg.version) throw new Error('Missing package version'); 
+          if (!pkg.main && !pkg.exports) console.warn('Warning: No main entry point defined'); 
+          console.log('✅ Package configuration looks good');"
+      
+      - name: Verify package
+        run: npm pack --dry-run
+      
+      # Publish to NPM using trusted publishing (no NPM_TOKEN needed)
+      - name: Publish to NPM
+        run: npm publish
+        timeout-minutes: 10
