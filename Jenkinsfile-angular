@@ -25,7 +25,7 @@ pipeline {
     }
     stage('Build') {
       environment {
-        NPM_TOKEN = credentials('NPM_TOKEN')
+        NPM_TOKEN = credentials('NPM_TOKEN_PUBLISH_LFORMS')
       }
       steps {
         echo "Started building"
