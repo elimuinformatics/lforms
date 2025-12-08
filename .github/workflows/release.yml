@@ -14,96 +14,95 @@ on:
 
 # Required for NPM trusted publishing
 permissions:
-  id-token: write  
-  contents: read   
+  id-token: write
+  contents: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18, 20]
-    
+        node-version: [24]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      - name: Setup Node.js ${{ matrix.node-version }}
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      
+          cache: npm
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run unit tests
         run: npm run test:unit
 
   build:
     needs: test
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Build project
-        run: npm run build
-      
+
+      - name: Build Docker image
+        run: docker build -t app-build .
+
+      - name: Extract build artifacts
+        run: |
+          id=$(docker create app-build)
+          docker cp $id:/app/dist ./dist
+          docker rm $id
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
-          path: |
-            dist/
-            !dist/**/*.zip
-          retention-days: 7
+          path: dist/
 
   publish:
-    needs: [test, build]
+    needs: build
     runs-on: ubuntu-latest
-    
+
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      - name: Setup Node.js
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: dist
+
+      - name: Setup Node.js (Node 24 for parity with Docker/Jenkins)
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'npm'
-      
-      # Ensure we have npm 11.5.1 or later for trusted publishing
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
       - name: Update npm
         run: npm install -g npm@latest
-      
+
       - name: Verify npm version
         run: npm --version
-      
+
       - name: Install dependencies
         run: npm ci
-      
-      - name: Build for production
-        run: npm run build
-      
+
       - name: Verify package configuration
         run: node scripts/verify-package.js
-      
-      - name: Verify package
+
+      - name: Verify package contents
         run: npm pack --dry-run
-      
-      # Publish to NPM using trusted publishing (no NPM_TOKEN needed)
+
       - name: Publish to NPM
         run: npm publish
         timeout-minutes: 10
