@@ -2,6 +2,8 @@ name: Release Package
 
 on:
   push:
+    branches:
+      - master
     tags:
       - 'v*'
   # Allow manual triggering from GitHub UI
@@ -37,8 +39,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build project for tests
+        run: npm run build
+
       - name: Run unit tests
-        run: npm run test:unit
+        run: TZ=America/New_York npm run test:fhir-unit
+        env:
+          TZ: America/New_York
 
   build:
     needs: test
