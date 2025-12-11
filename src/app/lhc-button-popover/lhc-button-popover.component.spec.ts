@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LhcButtonPopoverComponent } from './lhc-button-popover.component';
-import { LhcDataService} from '../../lib/lhc-data.service';
+import { LFormsTestingModule } from '../testing/lforms-testing.module';
+import { LhcDataService } from '../../lib/lhc-data.service';
 
 describe('LhcPopoverComponent', () => {
   let component: LhcButtonPopoverComponent;
@@ -8,10 +9,9 @@ describe('LhcPopoverComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LhcButtonPopoverComponent ],
-      providers: [LhcDataService]
-    })
-    .compileComponents();
+      imports: [LFormsTestingModule],
+      providers: [LhcDataService],
+    }).compileComponents();
   });
 
   beforeEach(() => {

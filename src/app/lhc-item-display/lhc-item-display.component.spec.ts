@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LhcItemDisplayComponent } from './lhc-item-display.component';
-import { LhcItemQuestionTextComponent } from '../lhc-item-question-text/lhc-item-question-text.component';
-import { LhcDataService} from '../../lib/lhc-data.service';
+import { LFormsTestingModule } from '../testing/lforms-testing.module';
+import { LhcDataService } from '../../lib/lhc-data.service';
 
 describe('LhcItemDisplayComponent', () => {
   let component: LhcItemDisplayComponent;
@@ -9,13 +9,9 @@ describe('LhcItemDisplayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ 
-        LhcItemDisplayComponent,
-        LhcItemQuestionTextComponent
-      ],
-      providers: [LhcDataService]
-    })
-    .compileComponents();
+      imports: [LFormsTestingModule],
+      providers: [LhcDataService],
+    }).compileComponents();
   });
 
   beforeEach(() => {

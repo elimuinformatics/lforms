@@ -43,7 +43,7 @@ jobs:
         run: npm run build
 
       - name: Run unit tests
-        run: TZ=America/New_York npm run test:fhir-unit
+        run: TZ=America/New_York npm run test:unit
         env:
           TZ: America/New_York
 
