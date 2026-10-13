@@ -20,7 +20,7 @@ export class LhcItemChoiceCheckBoxComponent implements OnInit, OnChanges {
   checkboxModels: boolean[] = [];
   otherCheckboxModel: boolean = null;
 
-  // the previous value, because nz-checkbox-wrapper does not have access to the previous value in the ngOnChange event
+  // the previous value, passed to onItemValueChange along with the new value
   prevCheckBoxValue: any = null;
 
   constructor(
@@ -73,7 +73,20 @@ export class LhcItemChoiceCheckBoxComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Invoked when the selection of checkbox changes
+   * Invoked when any checkbox is checked or unchecked. Collects the checked
+   * values in display order, as ng-zorro's nz-checkbox-wrapper (removed in
+   * ng-zorro 21) did, rather than in click order as nz-checkbox-group does.
+   */
+  onCheckboxChange(): void {
+    const value = this.item.answers.filter((answer, i) => this.checkboxModels[i]);
+    if (this.otherCheckboxModel) {
+      value.push({ 'text': this.otherValue, '_notOnList': true });
+    }
+    this.onCheckboxModelChange(value);
+  }
+
+  /**
+   * Sets the item value from the selected checkboxes
    * @param value the selected values of a checkbox group
    */
   onCheckboxModelChange(value: any): void {
