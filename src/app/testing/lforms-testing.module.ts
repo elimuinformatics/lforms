@@ -12,7 +12,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 // icons
@@ -80,7 +80,7 @@ import { LhcGroupGridComponent } from '../lhc-group-grid/lhc-group-grid.componen
     NzPopoverModule,
     NzIconModule.forRoot(icons),
     NzSwitchModule,
-    NzToolTipModule,
+    NzTooltipModule,
     NzTabsModule,
   ],
   declarations: [
@@ -128,7 +128,7 @@ import { LhcGroupGridComponent } from '../lhc-group-grid/lhc-group-grid.componen
     NzPopoverModule,
     NzIconModule,
     NzSwitchModule,
-    NzToolTipModule,
+    NzTooltipModule,
     NzTabsModule,
     // Export all components
     LhcItemChoiceComponent,
