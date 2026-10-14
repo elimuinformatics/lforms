@@ -1,6 +1,7 @@
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
 import 'zone.js/testing';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
@@ -14,9 +15,14 @@ declare const require: {
   };
 };
 
+// Angular 21 defaults TestBed to zoneless change detection; the web component
+// bootstraps with zone change detection (src/main.ts), so test the same way.
+@NgModule({ providers: [provideZoneChangeDetection()] })
+class ZoneChangeDetectionModule {}
+
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
+  [BrowserDynamicTestingModule, ZoneChangeDetectionModule],
   platformBrowserDynamicTesting()
 );
 

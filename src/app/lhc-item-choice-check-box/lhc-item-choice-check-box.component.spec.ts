@@ -203,6 +203,31 @@ describe('LhcItemChoiceCheckBoxComponent', () => {
 
   })
 
+  it('should set item.value in display order, when checkboxes are clicked out of order', () => {
+    component.item = itemCheckboxCNE;
+    component.acOptions = acOptions;
+    fixture.detectChanges();
+
+    let radio:HTMLElement = getItemAnswerElem(element, itemCheckboxCNE, itemCheckboxCNE.answers[1])
+    radio.click();
+    expect(component.item.value).toEqual([{
+      "code": "c2",
+      "text": "Answer Y"
+    }])
+
+    //the earlier answer in the list should come first, even though it was clicked last
+    radio = getItemAnswerElem(element, itemCheckboxCNE, itemCheckboxCNE.answers[0])
+    radio.click();
+    expect(component.item.value).toEqual([{
+      "code": "c1",
+      "text": "Answer X"
+    },{
+      "code": "c2",
+      "text": "Answer Y"
+    }])
+
+  })
+
   it('should set item.value, when the "other" checkbox is selected', () => {
     component.item = itemCheckboxCWE;
     component.acOptions = acOptions;

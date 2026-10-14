@@ -1,5 +1,5 @@
 <ng-container *ngIf="item && item.items">
-  <nz-tabset nzType="card">
+  <nz-tabs nzType="card">
     <ng-container *ngFor="let group of item.items">
       <ng-container *ngIf="!group._isHiddenFromView">
         <nz-tab [nzTitle]="group._text">
@@ -7,5 +7,5 @@
         </nz-tab>
       </ng-container>
     </ng-container>
-  </nz-tabset>
+  </nz-tabs>
 </ng-container>
