@@ -1,0 +1,14 @@
+/*
+ * ng-zorro-antd 21's prebuilt style/index.min.css compiles `rgb(0, 0, 0, 0.32)`
+ * from style/patch.less down to an opaque `#000`, dropping the alpha. Because
+ * these rules ship in the global styles.css that host apps load, every
+ * Angular CDK/Material dialog backdrop on the page turns solid black.
+ * Restore the CDK defaults. Must stay listed after the ng-zorro styles in angular.json.
+ */
+.cdk-overlay-backdrop {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cdk-overlay-dark-backdrop {
+  background: rgba(0, 0, 0, 0.32);
+}
